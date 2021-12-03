@@ -1,8 +1,8 @@
 KERNEL_NAME := Image
 TARGET_KERNEL_ARCH := arm64
-IMX8MP_USES_GKI := true
+#IMX8MP_USES_GKI := true
 
-#Enable this to config 1GB ddr on evk_imx8mp
+#Enable this to config 1GB ddr on phyboard_pollux
 #LOW_MEMORY := true
 
 #Enable this to include trusty support
@@ -12,9 +12,9 @@ PRODUCT_IMX_TRUSTY := true
 #IMX_NO_PRODUCT_PARTITION := true
 
 #NXP 8997 wifi driver module
-BOARD_VENDOR_KERNEL_MODULES += \
-    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
-    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
+#BOARD_VENDOR_KERNEL_MODULES += \
+#    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
+#    $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
 
 # CONFIG_IMX_SDMA: imx-sdma.ko, sdma used for audio
 # CONFIG_SND_SOC_IMX_PCM_DMA: imx-pcm-dma-common.ko, used for fsl_micfil
@@ -46,7 +46,7 @@ else
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/remoteproc/imx_rproc.ko
 endif
-
+#ToDo: TLV320
 BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/mxc/gpu-viv/galcore.ko \
     $(KERNEL_OUT)/drivers/dma/imx-sdma.ko \
@@ -61,8 +61,6 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/gpu/drm/bridge/synopsys/dw-hdmi-gp-audio.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-hdmi-codec.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-cdnhdmi.ko \
-    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-wm8960.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-wm8960.ko \
     $(KERNEL_OUT)/sound/soc/codecs/snd-soc-bt-sco.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card-utils.ko \
     $(KERNEL_OUT)/sound/soc/generic/snd-soc-simple-card.ko \
@@ -76,13 +74,7 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/sound/soc/fsl/imx-pcm-rpmsg.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-fsl-rpmsg-i2s.ko \
     $(KERNEL_OUT)/sound/soc/fsl/imx-i2s-rpmsg.ko \
-    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960.ko \
-    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-wm8960-i2c.ko \
-    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x.ko \
-    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-rpmsg-pcm512x-i2c.ko \
-    $(KERNEL_OUT)/sound/soc/codecs/snd-soc-tpa6130a2.ko \
     $(KERNEL_OUT)/sound/soc/fsl/snd-soc-imx-rpmsg.ko \
-    $(KERNEL_OUT)/sound/soc/fsl/snd-soc-rpmsg-imx-pcm512x.ko \
     $(KERNEL_OUT)/drivers/rtc/rtc-snvs.ko \
     $(KERNEL_OUT)/drivers/pci/controller/dwc/pci-imx6.ko \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \
@@ -195,7 +187,6 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES +=     \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/lcdifv3/imx-lcdifv3-crtc.ko \
     $(KERNEL_OUT)/drivers/gpu/imx/lcdifv3/imx-lcdifv3-core.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/imx/sec_mipi_dsim-imx.ko \
-    $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-raydium-rm67191.ko \
     $(KERNEL_OUT)/drivers/gpu/drm/panel/panel-simple.ko \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3-imx8mp.ko \
     $(KERNEL_OUT)/drivers/usb/dwc3/dwc3.ko \

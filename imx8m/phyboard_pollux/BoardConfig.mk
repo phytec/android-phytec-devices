@@ -31,7 +31,7 @@ SOONG_CONFIG_IMXPLUGIN_BOARD_VPU_ONLY = false
 # Product-specific compile-time definitions.
 #
 
-IMX_DEVICE_PATH := device/nxp/imx8m/evk_8mp
+IMX_DEVICE_PATH := device/nxp/imx8m/phyboard_pollux
 
 include device/nxp/imx8m/BoardConfigCommon.mk
 
@@ -74,22 +74,6 @@ TARGET_BOOTLOADER_BOARD_NAME := EVK
 
 USE_OPENGL_RENDERER := true
 
-# NXP 8997 WIFI
-BOARD_WLAN_DEVICE            := nxp
-WPA_SUPPLICANT_VERSION       := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
-BOARD_HOSTAPD_DRIVER         := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-
-WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
-
-# NXP 8997 BT
-BOARD_HAVE_BLUETOOTH_NXP := true
-
-# NXP 8997 BT
-BOARD_HAVE_BLUETOOTH_NXP := true
-
 BOARD_USE_SENSOR_FUSION := true
 
 # we don't support sparse image.
@@ -116,8 +100,9 @@ TARGET_USES_MKE2FS := true
 
 CMASIZE=800M
 # NXP default config
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
+BOARD_KERNEL_CMDLINE := init=/init androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
 
+BOARD_KERNEL_CMDLINE += androidboot.console=ttymxc0 console=ttymxc0,115200n8
 # memory config
 BOARD_KERNEL_CMDLINE += transparent_hugepage=never
 BOARD_KERNEL_CMDLINE += swiotlb=65536
@@ -154,32 +139,19 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mp/dtbo-imx8mp.img
+BOARD_PREBUILT_DTBOIMAGE := out/target/product/phyboard_pollux/dtbo-imx8mp.img
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-no-product.dtb
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk-no-product.dtb
   else
-    # Default use basler + ov5640
-    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-basler-ov5640.dtb
-    # Only ov5640
-    TARGET_BOARD_DTS_CONFIG += imx8mp-ov5640:imx8mp-evk.dtb
-    # Only basler
-    TARGET_BOARD_DTS_CONFIG += imx8mp-basler:imx8mp-evk-basler.dtb
-    # Used to support mcu image
-    TARGET_BOARD_DTS_CONFIG += imx8mp-rpmsg:imx8mp-evk-wm8960-hifiberry-dacpp-m-rpmsg.dtb
-    # Support LVDS interface
-    TARGET_BOARD_DTS_CONFIG += imx8mp-lvds:imx8mp-evk-it6263-lvds-dual-channel.dtb
-    # Support LVDS panel
-    TARGET_BOARD_DTS_CONFIG += imx8mp-lvds-panel:imx8mp-evk-jdi-wuxga-lvds-panel.dtb
-    # Support MIPI panel
-    TARGET_BOARD_DTS_CONFIG += imx8mp-mipi-panel:imx8mp-evk-rm67191.dtb
+   TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk.dtb
   endif
-else # no dynamic parition feature
+else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-no-product-no-dynamic_partition.dtb
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk-no-product-no-dynamic_partition.dtb
   else
-    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-evk-no-dynamic_partition.dtb
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk-no-dynamic_partition.dtb
   endif
 endif
 

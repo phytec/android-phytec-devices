@@ -1,6 +1,8 @@
 # uboot.imx in android combine scfw.bin and uboot.bin
 MAKE += SHELL=/bin/bash
 
+DTBS := phycore-imx8mp.dtb
+
 ifneq ($(AARCH64_GCC_CROSS_COMPILE),)
   ATF_CROSS_COMPILE := $(strip $(AARCH64_GCC_CROSS_COMPILE))
 else
@@ -12,7 +14,7 @@ define build_imx_uboot
 	cp $(UBOOT_OUT)/u-boot-nodtb.$(strip $(1)) $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	cp $(UBOOT_OUT)/spl/u-boot-spl.bin  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	cp $(UBOOT_OUT)/tools/mkimage  $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/mkimage_uboot; \
-	cp $(UBOOT_OUT)/arch/arm/dts/imx8mp-evk.dtb $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+	cp $(UBOOT_OUT)/arch/arm/dts/phycore-imx8mp.dtb $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	cp $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_pmu_train* $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=`echo $(2) | cut -d '-' -f1` clean; \
 	if [ `echo $(2) | cut -d '-' -f2` = "trusty" ]; then \
@@ -27,13 +29,13 @@ define build_imx_uboot
 	cp $(IMX_PATH)/arm-trusted-firmware/build/`echo $(2) | cut -d '-' -f1`/release/bl31.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/bl31.bin; \
 	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
 	if [ `echo $(2) | rev | cut -d '-' -f1 | rev` = "dual" ]; then \
-		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MP flash_evk_no_hdmi_dual_bootloader || exit 1; \
-		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MP PRINT_FIT_HAB_OFFSET=0x0 print_fit_hab || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MP DTBS=$(DTBS) flash_evk_no_hdmi_dual_bootloader || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MP DTBS=$(DTBS) PRINT_FIT_HAB_OFFSET=0x0 print_fit_hab || exit 1; \
 		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(UBOOT_COLLECTION)/spl-$(strip $(2)).bin; \
 		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/u-boot-ivt.itb $(UBOOT_COLLECTION)/bootloader-$(strip $(2)).img; \
 	else \
-		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MP flash_evk || exit 1; \
-		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MP print_fit_hab || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MP DTBS=$(DTBS) flash_evk || exit 1; \
+		$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MP DTBS=$(DTBS) print_fit_hab || exit 1; \
 		cp $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(UBOOT_COLLECTION)/u-boot-$(strip $(2)).imx; \
 	fi;
 endef

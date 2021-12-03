@@ -1,7 +1,7 @@
 # This is a FSL Android Reference Design platform based on i.MX8QP ARD board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
-IMX_DEVICE_PATH := device/nxp/imx8m/evk_8mp
+IMX_DEVICE_PATH := device/nxp/imx8m/phyboard_pollux
 
 # configs shared between uboot, kernel and Android rootfs
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
@@ -14,9 +14,9 @@ $(shell touch $(IMX_DEVICE_PATH)/fstab.nxp)
 endif
 
 # Overrides
-PRODUCT_NAME := evk_8mp
-PRODUCT_DEVICE := evk_8mp
-PRODUCT_MODEL := EVK_8MP
+PRODUCT_NAME := phyboard_pollux
+PRODUCT_DEVICE := phyboard_pollux
+PRODUCT_MODEL := PHYBOARD_POLLUX
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/power
@@ -136,10 +136,9 @@ PRODUCT_COPY_FILES += \
 endif
 
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8m/evk_8mp/camera_config_imx8mp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mp.json \
-    device/nxp/imx8m/evk_8mp/ov5640_camera_config_imx8mp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/ov5640_camera_config_imx8mp.json \
-    device/nxp/imx8m/evk_8mp/isp_camera_config_imx8mp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/isp_camera_config_imx8mp.json \
-    device/nxp/imx8m/evk_8mp/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
+    device/nxp/imx8m/phyboard_pollux/camera_config_imx8mp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mp.json \
+    device/nxp/imx8m/phyboard_pollux/isp_camera_config_imx8mp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/isp_camera_config_imx8mp.json \
+    device/nxp/imx8m/phyboard_pollux/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
@@ -179,7 +178,7 @@ PRODUCT_COPY_FILES += \
     device/nxp/common/seccomp_policy/codec2.vendor.ext.policy:vendor/etc/seccomp_policy/codec2.vendor.ext.policy
 
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8m/evk_8mp/powerhint_imx8mp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8mp.json
+    device/nxp/imx8m/phyboard_pollux/powerhint_imx8mp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8mp.json
 
 # fastboot_imx_flashall scripts, fsl-sdcard-partition script uuu_imx_android_flash scripts
 PRODUCT_COPY_FILES += \
@@ -272,7 +271,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.imx
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8m/evk_8mp/thermal_info_config_imx8mp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8mp.json
+    device/nxp/imx8m/phyboard_pollux/thermal_info_config_imx8mp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8mp.json
 
 # Neural Network HAL and lib
 PRODUCT_PACKAGES += \
@@ -304,10 +303,10 @@ PRODUCT_PACKAGES += \
     WifiOverlay
 
 # nxp 8997 wifi and bluetooth combo Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/nxp/FwImage_8997/pcieuart8997_combo_v4.bin:vendor/firmware/pcieuart8997_combo_v4.bin \
-    vendor/nxp/imx-firmware/nxp/android_wifi_mod_para.conf:vendor/firmware/wifi_mod_para.conf \
-    vendor/nxp/imx-firmware/nxp/android_wifi_mod_para_powersave.conf:vendor/firmware/wifi_mod_para_powersave.conf
+#PRODUCT_COPY_FILES += \
+#    vendor/nxp/imx-firmware/nxp/FwImage_8997/pcieuart8997_combo_v4.bin:vendor/firmware/pcieuart8997_combo_v4.bin \
+#    vendor/nxp/imx-firmware/nxp/android_wifi_mod_para.conf:vendor/firmware/wifi_mod_para.conf \
+#    vendor/nxp/imx-firmware/nxp/android_wifi_mod_para_powersave.conf:vendor/firmware/wifi_mod_para_powersave.conf
 
 # Wifi regulatory
 PRODUCT_COPY_FILES += \
@@ -476,7 +475,7 @@ ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
     POSTINSTALL_OPTIONAL_vendor=false
 
   PRODUCT_COPY_FILES += \
-    out/target/product/evk_8mp/obj/UBOOT_COLLECTION/u-boot-imx8mp.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+    out/target/product/phyboard_pollux/obj/UBOOT_COLLECTION/u-boot-imx8mp.imx:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
 endif
 
 
