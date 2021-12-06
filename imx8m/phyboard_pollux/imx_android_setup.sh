@@ -58,6 +58,12 @@ cp -r "$REL_PACKAGE_DIR"/vendor/nxp "$android_builddir"/vendor/
 cp -r "$REL_PACKAGE_DIR"/EULA.txt "$android_builddir"
 cp -r "$REL_PACKAGE_DIR"/SCR* "$android_builddir"
 
+# Apply PHYTEC patches
+
+git apply --unsafe-paths
+--directory="$android_builddir"/vendor/nxp-opensource/imx-mkimage/
+"$android_builddir"/device/nxp/imx8m/phyboard_pollux/patch/0001-Parsing-the-devicetree-name.patch
+
 # unset variables
 
 unset android_builddir
