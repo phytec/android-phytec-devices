@@ -74,7 +74,22 @@ TARGET_BOOTLOADER_BOARD_NAME := EVK
 
 USE_OPENGL_RENDERER := true
 
+# Sterling-LWB BT/WiFi
+BOARD_WLAN_DEVICE			:= bcmdhd
+WPA_SUPPLICANT_VERSION			:= VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER		:= NL80211
+BOARD_HOSTAPD_DRIVER			:= NL80211
+BOARD_HOSTAPD_PRIVATE_LIB		:= lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB	:= lib_driver_cmd_bcmdhd
+WIFI_DRIVER_FW_PATH_PARAM		:= "/sys/module/brcmfmac/parameters/alternative_fw_path"
+BOARD_VENDOR_KERNEL_MODULES += \
+                            $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \
+                            $(KERNEL_OUT)/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 BOARD_USE_SENSOR_FUSION := true
+
+BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_CUSTOM_BT_CONFIG := $(IMX_DEVICE_PATH)/bluetooth/vnd_phyboard_polis.txt
 
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false

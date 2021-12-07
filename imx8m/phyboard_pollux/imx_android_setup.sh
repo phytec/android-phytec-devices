@@ -65,6 +65,13 @@ git apply --unsafe-paths
 "$android_builddir"/device/nxp/imx8m/phyboard_pollux/patch/0001-Parsing-the-devicetree-name.patch
 git apply --unsafe-paths --directory="$android_builddir"/vendor/nxp-opensource/imx-mkimage/ "$android_builddir"/device/nxp/imx8m/phyboard_pollux/patch/0001-iMX8-soc.mk-only-remove-dtbs-in-clean.patch
 
+# Download and extract Sterling-LWB firmware (FCC)
+
+wget -q "https://artifactory.phytec.com/artifactory/yocto-source-mirror/laird-lwb-fcc-firmware-8.2.0.16.tar.bz2"
+tar -xf laird-lwb-fcc-firmware-8.2.0.16.tar.bz2 -C
+"$android_builddir"/device/nxp/imx8m/phyboard_pollux/
+rm -f laird-lwb-fcc-firmware-8.2.0.16.tar.bz2
+
 # unset variables
 
 unset android_builddir
