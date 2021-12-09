@@ -63,6 +63,7 @@ cp -r "$REL_PACKAGE_DIR"/SCR* "$android_builddir"
 git apply --unsafe-paths
 --directory="$android_builddir"/vendor/nxp-opensource/imx-mkimage/
 "$android_builddir"/device/nxp/imx8m/phyboard_pollux/patch/0001-Parsing-the-devicetree-name.patch
+git apply --unsafe-paths --directory="$android_builddir"/vendor/nxp-opensource/imx-mkimage/ "$android_builddir"/device/nxp/imx8m/phyboard_pollux/patch/0001-iMX8-soc.mk-only-remove-dtbs-in-clean.patch
 
 # unset variables
 

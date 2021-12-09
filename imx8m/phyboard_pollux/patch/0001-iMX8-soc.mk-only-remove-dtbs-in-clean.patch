@@ -1,0 +1,59 @@
+From 1961febb4e42d796e3247461307f2f191056bd40 Mon Sep 17 00:00:00 2001
+From: Matt McKee <mmckee@phytec.com>
+Date: Fri, 5 Mar 2021 11:41:19 -0800
+Subject: [PATCH 1/1] iMX8: soc.mk: only remove dtbs in 'clean'
+
+This commit also removes the evk.dtb from being
+passed onto the pre-processing script by default.
+
+Signed-off-by: Matt McKee <mmckee@phytec.com>
+---
+ iMX8M/soc.mak | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/iMX8M/soc.mak b/iMX8M/soc.mak
+index b7b3986fb5..a83df0c23e 100644
+--- a/iMX8M/soc.mak
++++ b/iMX8M/soc.mak
+@@ -131,11 +131,11 @@ u-boot-atf-tee.bin: u-boot.bin bl31.bin tee.bin
+ 
+ .PHONY: clean
+ clean:
+-	@rm -f $(MKIMG) u-boot-atf.bin u-boot-atf-tee.bin u-boot-spl-ddr.bin u-boot.itb u-boot.its u-boot-ddr3l.itb u-boot-ddr3l.its u-boot-spl-ddr3l.bin u-boot-ddr4.itb u-boot-ddr4.its u-boot-spl-ddr4.bin u-boot-ddr4-evk.itb u-boot-ivt.itb u-boot-ddr4-evk.its $(OUTIMG)
++	@rm -f $(MKIMG) u-boot-atf.bin u-boot-atf-tee.bin u-boot-spl-ddr.bin u-boot.itb u-boot.its u-boot-ddr3l.itb u-boot-ddr3l.its u-boot-spl-ddr3l.bin u-boot-ddr4.itb u-boot-ddr4.its u-boot-spl-ddr4.bin u-boot-ddr4-evk.itb u-boot-ivt.itb u-boot-ddr4-evk.its $(dtbs) $(OUTIMG)
+ 
+ dtbs = evk.dtb
+ $(dtbs):
+-	./$(DTB_PREPROC) $(PLAT)-evk.dtb $(dtbs)
++	./$(DTB_PREPROC) $(dtbs)
+ 
+ u-boot.itb: $(dtbs)
+ 	./$(PAD_IMAGE) tee.bin
+@@ -143,7 +143,7 @@ u-boot.itb: $(dtbs)
+ 	./$(PAD_IMAGE) u-boot-nodtb.bin $(dtbs)
+ 	DEK_BLOB_LOAD_ADDR=$(DEK_BLOB_LOAD_ADDR) TEE_LOAD_ADDR=$(TEE_LOAD_ADDR) ATF_LOAD_ADDR=$(ATF_LOAD_ADDR) ./mkimage_fit_atf.sh $(dtbs) > u-boot.its
+ 	./mkimage_uboot -E -p 0x3000 -f u-boot.its u-boot.itb
+-	@rm -f u-boot.its $(dtbs)
++	@rm -f u-boot.its
+ 
+ dtbs_ddr3l = valddr3l.dtb
+ $(dtbs_ddr3l):
+@@ -256,7 +256,6 @@ print_fit_hab: u-boot-nodtb.bin bl31.bin $(dtbs)
+ 	./$(PAD_IMAGE) bl31.bin
+ 	./$(PAD_IMAGE) u-boot-nodtb.bin $(dtbs)
+ 	TEE_LOAD_ADDR=$(TEE_LOAD_ADDR) ATF_LOAD_ADDR=$(ATF_LOAD_ADDR) VERSION=$(VERSION) ./print_fit_hab.sh $(PRINT_FIT_HAB_OFFSET) $(dtbs)
+-	@rm -f $(dtbs)
+ 
+ print_fit_hab_ddr4: u-boot-nodtb.bin bl31.bin $(dtbs_ddr4_evk)
+ 	./$(PAD_IMAGE) tee.bin
+@@ -270,7 +269,6 @@ print_fit_hab_flexspi: u-boot-nodtb.bin bl31.bin $(dtbs)
+ 	./$(PAD_IMAGE) bl31.bin
+ 	./$(PAD_IMAGE) u-boot-nodtb.bin $(dtbs)
+ 	TEE_LOAD_ADDR=$(TEE_LOAD_ADDR) ATF_LOAD_ADDR=$(ATF_LOAD_ADDR) VERSION=$(VERSION) BOOT_DEV="flexspi" ./print_fit_hab.sh $(PRINT_FIT_HAB_OFFSET) $(dtbs)
+-	@rm -f $(dtbs)
+ 
+ nightly :
+ 	@echo "Pulling nightly for $(PLAT) evk board from $(SERVER)/$(DIR)"
+-- 
+2.25.0
+
