@@ -121,7 +121,7 @@ if [ ${build_bootloader_kernel_flag} -eq 0 ] && [ ${build_android_flag} -eq 0 ];
 fi
 
 # vvcam.ko need build with kernel each time to make sure "insmod vvcam.ko" works
-if [ -n "${build_kernel}" ] && [ ${TARGET_PRODUCT} = "evk_8mp" ]; then
+if [ -n "${build_kernel}" ] && [[ ${TARGET_PRODUCT} = "evk_8mp" || ${TARGET_PRODUCT} = "phyboard_pollux" ]]; then
     build_vvcam="vvcam";
     build_kernel_module_flag=1;
 fi
