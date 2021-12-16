@@ -64,6 +64,7 @@ git apply --unsafe-paths
 --directory="$android_builddir"/vendor/nxp-opensource/imx-mkimage/
 "$android_builddir"/device/nxp/imx8m/phyboard_pollux/patch/0001-Parsing-the-devicetree-name.patch
 git apply --unsafe-paths --directory="$android_builddir"/vendor/nxp-opensource/imx-mkimage/ "$android_builddir"/device/nxp/imx8m/phyboard_pollux/patch/0001-iMX8-soc.mk-only-remove-dtbs-in-clean.patch
+git apply --unsafe-paths --directory="$android_builddir"/vendor/nxp-opensource/arm-trusted-firmware/ "$android_builddir"/device/nxp/imx8m/phyboard_pollux/patch/0001-plat-imx8mp-Change-debug-uart-to-uart1.patch
 
 # Download and extract Sterling-LWB firmware (FCC)
 
