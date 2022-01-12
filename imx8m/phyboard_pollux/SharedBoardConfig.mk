@@ -6,7 +6,7 @@ TARGET_KERNEL_ARCH := arm64
 #LOW_MEMORY := true
 
 #Enable this to include trusty support
-PRODUCT_IMX_TRUSTY := true
+#PRODUCT_IMX_TRUSTY := true
 
 #Enable this to disable product partition build.
 #IMX_NO_PRODUCT_PARTITION := true
