@@ -158,15 +158,15 @@ BOARD_PREBUILT_DTBOIMAGE := out/target/product/phyboard_pollux/dtbo-imx8mp.img
 
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk-no-product.dtb
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk-lvds0-no-product.dtb
   else
-   TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk.dtb
+   TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk-lvds0.dtb
   endif
 else
   ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk-no-product-no-dynamic_partition.dtb
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk-lvds0-no-product-no-dynamic_partition.dtb
   else
-    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk-no-dynamic_partition.dtb
+    TARGET_BOARD_DTS_CONFIG := imx8mp:imx8mp-phyboard-pollux-rdk-lvds0-no-dynamic_partition.dtb
   endif
 endif
 
