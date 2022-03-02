@@ -24,7 +24,7 @@ fi
 
 mkdir -p "$android_builddir"
 cd "$android_builddir"
-repo init -u https://source.codeaurora.org/external/imx/imx-manifest.git -b imx-android-11 -m imx-android-11.0.0_1.2.1.xml --repo-branch=v2.4.1
+repo init -u https://github.com/phytec/phydroid.git -b imx8mp -m BSP-Android-NXP-i.MX8MP-ALPHA1.xml --repo-branch=v2.4.1
 
 rc=$?
 if [ "$rc" != 0 ]; then
